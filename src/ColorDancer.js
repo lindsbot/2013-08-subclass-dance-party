@@ -8,6 +8,5 @@ ColorDancer.prototype.constructor = ColorDancer;
 
 ColorDancer.prototype.step = function() {
   Dancer.prototype.step.apply(this);
-  this.$node.addClass('blue');
-  this.$node.toggleClass('blue', true);
+  this.$node.toggleClass('blue');
 };

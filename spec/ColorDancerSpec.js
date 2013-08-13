@@ -16,16 +16,21 @@ describe("ColorDancer", function() {
     expect(!!colorDancer.step).to.be.true;
   });
 
-  it("should have a step function that makes it change colors", function() {
+  it("should have a step function that toggles the dancers classes", function() {
+    sinon.spy(colorDancer.$node, 'toggleClass');
+    colorDancer.step();
+    expect(colorDancer.$node.toggleClass.called).to.be.true;
+  });
+
+  it("should call step at least once per second", function() {
     sinon.spy(colorDancer, "step");
     expect(colorDancer.step.callCount).to.be.equal(0)
     clock.tick(timeBetweenSteps);
-    
+
     expect(colorDancer.step.callCount).to.be.equal(1);
 
     clock.tick(timeBetweenSteps);
     expect(colorDancer.step.callCount).to.be.equal(2);
   });
-
 
 });
