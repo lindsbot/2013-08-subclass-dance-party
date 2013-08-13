@@ -8,19 +8,41 @@
     <script src="src/blinkyDancer.js"></script>
     <script src="src/ColorDancer.js"></script>
     <script src="src/privateDancer.js"></script>
+    <script src="src/lineUp.js"></script>
   </head>
   <body>
-
     <div class="topbar">
       <span class="title">object dance party</span>
-      <a href="#" class="addDancerButton" data-dancer-maker-function-name="MakeBlinkyDancer">add a dancer</a>
-      <a href = "#" class="addDancerButton" data-dancer-maker-function-name="ColorDancer">change a dancers color</a>
+      <a href="#" class="addDancerButton" data-dancer-maker-function-name="MakeBlinkyDancer">dance with blinkies</a>
+      <a href = "#" class="addDancerButton" data-dancer-maker-function-name="ColorDancer">dance with color changers</a>
       <a href="#" class="addDancerButton" data-dancer-maker-function-name="PrivateDancer">dance with Tina</a>
+      <a href="#" class="lineUpButton">dancers line up!</a>
     </div>
 
+    <div class="dancefloor"></div>
     <script>
       $(document).ready(function(){
         window.dancers = [];
+
+        var lineupcont = $('<div class="lineupcontainer"></div>');
+        $('.dancefloor').append(lineupcont);
+
+        var lineUp = function() {
+          var dancers = $('.dancer');
+          $.each(dancers, function(index, dancer) {
+            var temp = $(dancer);
+             temp.css({
+              left: "0px"
+            });
+            $(dancer).detach();
+            $('.lineupcontainer').append(temp);
+
+          });
+        };
+
+        $(".lineUpButton").on("click", function() {
+            lineUp();
+        });
 
         $(".addDancerButton").on("click", function(event){
           /* This function sets up the click handlers for the create-dancer
@@ -36,18 +58,17 @@
            * to the stage.
            */
           var dancerMakerFunctionName = $(this).data("dancer-maker-function-name");
-
           // get the maker function for the kind of dancer we're supposed to make
           var dancerMakerFunction = window[dancerMakerFunctionName];
 
           // make a dancer with a random position
           var dancer = new dancerMakerFunction(
-            $("body").height() * Math.random(),
-            $("body").width() * Math.random(),
+            $(".dancefloor").height() * Math.random(),
+            $(".dancefloor").width() * Math.random(),
             Math.random() * 1000
           );
 
-          $('body').append(dancer.$node);
+          $('.dancefloor').append(dancer.$node);
         });
       });
     </script>
