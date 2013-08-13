@@ -30,13 +30,9 @@
         var lineUp = function() {
           var dancers = $('.dancer');
           $.each(dancers, function(index, dancer) {
-            var temp = $(dancer);
-             temp.css({
+            $(dancer).css({
               left: "0px"
-            });
-            $(dancer).detach();
-            $('.lineupcontainer').append(temp);
-
+            }).detach().appendTo($(".lineupcontainer"));
           });
         };
 
